@@ -3,9 +3,10 @@ import fr from '../lang/fr.json'
 import de from '../lang/de.json'
 import zh from '../lang/zh.json'
 import pt from '../lang/pt.json'
+import es from '../lang/es.json'
 import { INestedMessages } from '../lang'
 
-export type Language = 'pt' | 'en' | 'de' | 'fr' | 'zh' | undefined
+export type Language = 'pt' | 'en' | 'de' | 'fr' | 'zh' | 'es' | undefined
 
 const useLocale = () => {
     const DEFAULT_LANGUAGE = 'en'
@@ -15,7 +16,8 @@ const useLocale = () => {
             fr: fr,
             de: de,
             zh: zh,
-            pt: pt
+            pt: pt,
+            es: es
         }
 
         return messages[lang]
@@ -34,7 +36,10 @@ const useLocale = () => {
     }
 
     function switchLanguage(newLanguage: string) {
-        console.log(newLanguage)
+        const intlCurrentLanguage = 'intl-current-language'
+        window.localStorage.setItem(intlCurrentLanguage, newLanguage)
+
+        return newLanguage
     }
 
     return { getMessagesByLanguage, getCurrentLanguage, switchLanguage }

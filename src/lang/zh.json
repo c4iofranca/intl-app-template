@@ -1,5 +1,6 @@
 {
     "app": {
-        "greetings": "你好"
+        "greetings": "你好",
+        "message": "现在你的应用程序是普通话的!"
     }
 }

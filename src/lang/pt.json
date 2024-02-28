@@ -1,5 +1,6 @@
 {
     "app": {
-        "greetings": "Olá"
+        "greetings": "Olá",
+        "message": "Agora seu app está em Português!"
     }
 }

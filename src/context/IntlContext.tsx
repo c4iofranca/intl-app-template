@@ -9,6 +9,7 @@ interface IIntlContext {
   messages: INestedMessages;
   // eslint-disable-next-line @typescript-eslint/no-explicit-any
   translate: (key: string) => any
+  switchLocale: (newLanguage: string) => void
 }
 
 interface IIntlProviderProps {
@@ -23,12 +24,21 @@ function IntlProvider({ children }: IIntlProviderProps) {
   const [messages, setMessages] = useState<INestedMessages>({});
 
   const { getMessages, translate } = useTranslate();
-  const { getCurrentLanguage } = useLocale();
+  const { getCurrentLanguage, switchLanguage } = useLocale();
 
-  useEffect(() => {
+  const loadCurrentLanguage = () => {
     const currentLanguage = getCurrentLanguage();
 
     setLanguage(currentLanguage as Language);
+  }
+
+  const switchLocale = (newLanguage: string) => {
+    switchLanguage(newLanguage)
+    loadCurrentLanguage()
+  }
+
+  useEffect(() => {
+    loadCurrentLanguage()
   }, []);
 
   useEffect(() => {
@@ -39,7 +49,7 @@ function IntlProvider({ children }: IIntlProviderProps) {
   }, [language]);
 
   return (
-    <IntlContext.Provider value={{ language, messages, translate }}>
+    <IntlContext.Provider value={{ language, messages, translate, switchLocale }}>
       {children}
     </IntlContext.Provider>
   );
